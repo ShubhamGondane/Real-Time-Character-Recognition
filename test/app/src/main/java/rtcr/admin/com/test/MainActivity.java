@@ -15,18 +15,25 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity implements OnClickListener{
     View mView;
     Button clearbutton;
-
-
+    String text;
+    private Context context;
+    Button submit;
     private Paint mPaint;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -35,7 +42,7 @@ public class MainActivity extends Activity implements OnClickListener{
     private GoogleApiClient client;
     //Button clear=(Button) findViewById(R.id.button);
 
-//    Button submit= (Button) findViewById(R.id.button2);
+
     LinearLayout layout;
 
     public void onClick(View v)
@@ -46,31 +53,25 @@ public class MainActivity extends Activity implements OnClickListener{
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT));
 
-
-
-
         init();
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         layout = (LinearLayout) findViewById(R.id.myDrawing1);
         mView = new DrawingView(this);
         layout.addView(mView, new LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT));
-
+        //MainActivity.context=getApplicationContext();
+        context = this;
+        submit= (Button) findViewById(R.id.button);
         clearbutton= (Button) findViewById(R.id.button2);
         clearbutton.setOnClickListener(this);
 
-
         init();
-
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -145,8 +146,12 @@ public class MainActivity extends Activity implements OnClickListener{
         @Override
         public boolean onTouchEvent(MotionEvent event) {
             PathWithPaint pp = new PathWithPaint();
+            Float x1,y1,x2,y2;
             mCanvas.drawPath(path, mPaint);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                x1=event.getX();
+                y1=event.getY();
+                text="X"+x1+"Y"+y1;
                 path.moveTo(event.getX(), event.getY());
                 path.lineTo(event.getX(), event.getY());
             } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -155,7 +160,27 @@ public class MainActivity extends Activity implements OnClickListener{
                 pp.setmPaint(mPaint);
                 _graphics1.add(pp);
             }
+
             invalidate();
+
+            submit.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    // write on SD card file data in the text box
+                    try {
+                        File myFile = new File("/sdcard/data.txt");
+                        myFile.createNewFile();
+                        FileWriter fw =new FileWriter(myFile);
+                        fw.append(text);
+                        fw.flush();
+                        fw.close();
+                        Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getBaseContext(), e.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
             return true;
         }
 
