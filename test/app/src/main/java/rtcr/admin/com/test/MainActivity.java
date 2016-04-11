@@ -32,6 +32,8 @@ public class MainActivity extends Activity implements OnClickListener{
     View mView;
     Button clearbutton;
     String text;
+    String text1;
+    StringBuilder s=new StringBuilder(1000);
     private Context context;
     Button submit;
     private Paint mPaint;
@@ -151,11 +153,18 @@ public class MainActivity extends Activity implements OnClickListener{
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 x1=event.getX();
                 y1=event.getY();
-                text="X"+x1+"Y"+y1;
+                text=x1+","+y1;
+                s.append(text);
                 path.moveTo(event.getX(), event.getY());
                 path.lineTo(event.getX(), event.getY());
             } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 path.lineTo(event.getX(), event.getY());
+                x1=event.getX();
+                y1=event.getY();
+                text1=x1+","+y1;
+                //text1.concat("\n"+text1);
+                s.append(text1);
+                s.append("\n");
                 pp.setPath(path);
                 pp.setmPaint(mPaint);
                 _graphics1.add(pp);
@@ -166,12 +175,15 @@ public class MainActivity extends Activity implements OnClickListener{
             submit.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    // write on SD card file data in the text box
+                    // write on text file
                     try {
                         File myFile = new File("/sdcard/data.txt");
                         myFile.createNewFile();
                         FileWriter fw =new FileWriter(myFile);
-                        fw.append(text);
+                        //fw.append(text);
+                        //fw.append(text1);
+                        fw.append("\n");
+                        fw.append(s);
                         fw.flush();
                         fw.close();
                         Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
