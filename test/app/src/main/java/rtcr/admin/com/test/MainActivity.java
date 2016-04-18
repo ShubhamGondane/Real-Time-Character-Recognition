@@ -11,9 +11,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -22,11 +22,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity implements OnClickListener{
     View mView;
@@ -153,15 +150,16 @@ public class MainActivity extends Activity implements OnClickListener{
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 x1=event.getX();
                 y1=event.getY();
-                text=x1+","+y1;
+                text=x1+","+y1+";";
                 s.append(text);
+                s.append("\n");
                 path.moveTo(event.getX(), event.getY());
                 path.lineTo(event.getX(), event.getY());
             } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 path.lineTo(event.getX(), event.getY());
                 x1=event.getX();
                 y1=event.getY();
-                text1=x1+","+y1;
+                text1=x1+","+y1+";";
                 //text1.concat("\n"+text1);
                 s.append(text1);
                 s.append("\n");
@@ -178,11 +176,16 @@ public class MainActivity extends Activity implements OnClickListener{
                     // write on text file
                     try {
                         File myFile = new File("/sdcard/data.txt");
-                        myFile.createNewFile();
-                        FileWriter fw =new FileWriter(myFile);
+
+                        if(!myFile.exists())
+                        {
+                            myFile.createNewFile();
+
+                        }
+                        FileWriter fw =new FileWriter(myFile,true);
                         //fw.append(text);
                         //fw.append(text1);
-                        fw.append("\n");
+                        fw.append("\n=======\n");
                         fw.append(s);
                         fw.flush();
                         fw.close();
