@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -175,7 +176,7 @@ public class MainActivity extends Activity implements OnClickListener{
                 public void onClick(View v) {
                     // write on text file
                     try {
-                        File myFile = new File("/sdcard/data.txt");
+                        File myFile = new File(Environment.getExternalStorageDirectory().toString()+"/data.txt");
 
                         if(!myFile.exists())
                         {
@@ -185,7 +186,7 @@ public class MainActivity extends Activity implements OnClickListener{
                         FileWriter fw =new FileWriter(myFile,true);
                         //fw.append(text);
                         //fw.append(text1);
-                        fw.append("\n=======\n");
+                        fw.append("=======\n");
                         fw.append(s);
                         fw.flush();
                         fw.close();
