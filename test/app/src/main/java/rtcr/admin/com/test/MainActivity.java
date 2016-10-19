@@ -10,6 +10,7 @@ import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,15 +23,24 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+
+import static org.opencv.core.Core.getOptimalDFTSize;
 
 public class MainActivity extends Activity implements OnClickListener{
     View mView;
     Button clearbutton;
     String text;
     String text1;
+    String pixel[]=new String[200];
+    int pixelCount=0;
     StringBuilder s=new StringBuilder(1000);
     private Context context;
     Button submit;
@@ -45,8 +55,17 @@ public class MainActivity extends Activity implements OnClickListener{
 
     LinearLayout layout;
 
+    static {
+        if(!OpenCVLoader.initDebug()) {
+            Log.d("ERROR", "Unable to load OpenCV");
+        } else {
+            Log.d("SUCCESS", "OpenCV loaded");
+        }
+    }
+
     public void onClick(View v)
     {
+
         layout.removeAllViews();
         mView = new DrawingView(this);
         layout.addView(mView, new LayoutParams(
@@ -54,6 +73,19 @@ public class MainActivity extends Activity implements OnClickListener{
                 LinearLayout.LayoutParams.MATCH_PARENT));
 
         init();
+        Mat mat=new Mat(2,2, CvType.CV_32F);
+
+        mat.put(1,1,0);
+        mat.put(1,0,0);
+        mat.put(0,1,1);
+        mat.put(0,0,1);
+        int m=getOptimalDFTSize(mat.rows());
+        int n=getOptimalDFTSize(mat.cols());
+
+        Log.d("mat check", mat.dump()+","+m+","+n);
+
+        Core.dft(mat,mat);
+        Log.d("mat dft check", mat.dump());
     }
 
     @Override
@@ -76,7 +108,15 @@ public class MainActivity extends Activity implements OnClickListener{
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        if (!OpenCVLoader.initDebug()) {
+            Log.e(this.getClass().getSimpleName(), "  OpenCVLoader.initDebug(), not working.");
+        } else {
+            Log.d(this.getClass().getSimpleName(), "  OpenCVLoader.initDebug(), working.");
+        }
     }
+
+
 
     private void init() {
         mPaint = new Paint();
@@ -145,7 +185,8 @@ public class MainActivity extends Activity implements OnClickListener{
 
         @Override
         public boolean onTouchEvent(MotionEvent event) {
-            PathWithPaint pp = new PathWithPaint();
+
+                        PathWithPaint pp = new PathWithPaint();
             Float x1,y1,x2,y2;
             mCanvas.drawPath(path, mPaint);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -154,6 +195,8 @@ public class MainActivity extends Activity implements OnClickListener{
                 text=x1+","+y1+";";
                 s.append(text);
                 s.append("\n");
+                pixel[pixelCount]=text;
+                pixelCount++;
                 path.moveTo(event.getX(), event.getY());
                 path.lineTo(event.getX(), event.getY());
             } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -161,6 +204,8 @@ public class MainActivity extends Activity implements OnClickListener{
                 x1=event.getX();
                 y1=event.getY();
                 text1=x1+","+y1+";";
+                pixel[pixelCount]=text;
+                pixelCount++;
                 //text1.concat("\n"+text1);
                 s.append(text1);
                 s.append("\n");
@@ -187,10 +232,13 @@ public class MainActivity extends Activity implements OnClickListener{
                         //fw.append(text);
                         //fw.append(text1);
                         fw.append("=======\n");
+
                         fw.append(s);
                         fw.flush();
                         fw.close();
                         Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
+
+
                     } catch (Exception e) {
                         Toast.makeText(getBaseContext(), e.getMessage(),
                                 Toast.LENGTH_SHORT).show();
