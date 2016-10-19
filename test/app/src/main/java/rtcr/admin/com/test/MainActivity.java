@@ -39,8 +39,7 @@ public class MainActivity extends Activity implements OnClickListener{
     Button clearbutton;
     String text;
     String text1;
-    String pixel[]=new String[200];
-    int pixelCount=0;
+    int time=0;
     StringBuilder s=new StringBuilder(1000);
     private Context context;
     Button submit;
@@ -75,16 +74,14 @@ public class MainActivity extends Activity implements OnClickListener{
         init();
         Mat mat=new Mat(2,2, CvType.CV_32F);
 
-        mat.put(1,1,0);
-        mat.put(1,0,0);
-        mat.put(0,1,1);
-        mat.put(0,0,1);
+        mat.put(1,1,1);
+        mat.put(0,0,25);
         int m=getOptimalDFTSize(mat.rows());
         int n=getOptimalDFTSize(mat.cols());
 
         Log.d("mat check", mat.dump()+","+m+","+n);
 
-        Core.dft(mat,mat);
+        Core.dft(mat, mat);
         Log.d("mat dft check", mat.dump());
     }
 
@@ -119,6 +116,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
 
     private void init() {
+        time=0;
         mPaint = new Paint();
         mPaint.setDither(true);
         mPaint.setColor(0xff000000);
@@ -192,20 +190,21 @@ public class MainActivity extends Activity implements OnClickListener{
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 x1=event.getX();
                 y1=event.getY();
-                text=x1+","+y1+";";
+                time++;
+                text=x1+","+y1+","+time+";";
                 s.append(text);
                 s.append("\n");
-                pixel[pixelCount]=text;
-                pixelCount++;
+
+
                 path.moveTo(event.getX(), event.getY());
                 path.lineTo(event.getX(), event.getY());
             } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 path.lineTo(event.getX(), event.getY());
                 x1=event.getX();
                 y1=event.getY();
-                text1=x1+","+y1+";";
-                pixel[pixelCount]=text;
-                pixelCount++;
+                text1=x1+","+y1+","+time+";";
+
+
                 //text1.concat("\n"+text1);
                 s.append(text1);
                 s.append("\n");
