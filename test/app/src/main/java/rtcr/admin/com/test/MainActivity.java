@@ -23,16 +23,21 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import org.opencv.android.OpenCVLoader;
+/*import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;*/
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import static org.opencv.core.Core.getOptimalDFTSize;
+//import static org.opencv.core.Core.getOptimalDFTSize;
 
 public class MainActivity extends Activity implements OnClickListener{
     View mView;
@@ -44,6 +49,9 @@ public class MainActivity extends Activity implements OnClickListener{
     private Context context;
     Button submit;
     private Paint mPaint;
+    StringBuffer sbuffer = new StringBuffer();
+    Double coord[][] = new Double[1000][2];
+    int i=0;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -54,13 +62,13 @@ public class MainActivity extends Activity implements OnClickListener{
 
     LinearLayout layout;
 
-    static {
+   /* static {
         if(!OpenCVLoader.initDebug()) {
             Log.d("ERROR", "Unable to load OpenCV");
         } else {
             Log.d("SUCCESS", "OpenCV loaded");
         }
-    }
+    }*/
 
     public void onClick(View v)
     {
@@ -72,7 +80,7 @@ public class MainActivity extends Activity implements OnClickListener{
                 LinearLayout.LayoutParams.MATCH_PARENT));
 
         init();
-        Mat mat=new Mat(2,2, CvType.CV_32F);
+        /*Mat mat=new Mat(2,2, CvType.CV_32F);
 
         mat.put(1,1,1);
         mat.put(0,0,25);
@@ -82,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener{
         Log.d("mat check", mat.dump()+","+m+","+n);
 
         Core.dft(mat, mat);
-        Log.d("mat dft check", mat.dump());
+        Log.d("mat dft check", mat.dump());*/
     }
 
     @Override
@@ -106,11 +114,15 @@ public class MainActivity extends Activity implements OnClickListener{
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        if (!OpenCVLoader.initDebug()) {
+        /*if (!OpenCVLoader.initDebug()) {
             Log.e(this.getClass().getSimpleName(), "  OpenCVLoader.initDebug(), not working.");
         } else {
             Log.d(this.getClass().getSimpleName(), "  OpenCVLoader.initDebug(), working.");
-        }
+        }*/
+        Dft dft=new Dft();
+        dft.splitdata(this);
+
+
     }
 
 
