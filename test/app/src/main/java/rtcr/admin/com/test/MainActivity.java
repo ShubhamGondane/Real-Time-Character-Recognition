@@ -10,7 +10,6 @@ import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,19 +22,15 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
+
 /*import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;*/
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 //import static org.opencv.core.Core.getOptimalDFTSize;
 
@@ -45,6 +40,10 @@ public class MainActivity extends Activity implements OnClickListener{
     String text;
     String text1;
     int time=0;
+
+    String pixel[]=new String[1000];
+    int pixelCount=0;
+
     StringBuilder s=new StringBuilder(1000);
     private Context context;
     Button submit;
@@ -119,8 +118,7 @@ public class MainActivity extends Activity implements OnClickListener{
         } else {
             Log.d(this.getClass().getSimpleName(), "  OpenCVLoader.initDebug(), working.");
         }*/
-        Dft dft=new Dft();
-        dft.splitdata(this);
+
 
 
     }
@@ -136,6 +134,8 @@ public class MainActivity extends Activity implements OnClickListener{
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(5);
+        pixel=new String[1000];
+        pixelCount=0;
     }
 
     @Override
@@ -203,10 +203,12 @@ public class MainActivity extends Activity implements OnClickListener{
                 x1=event.getX();
                 y1=event.getY();
                 time++;
-                text=x1+","+y1+","+time+";";
+                text=x1+","+y1+","+time;
                 s.append(text);
                 s.append("\n");
 
+                pixel[pixelCount]=text;
+                pixelCount++;
 
                 path.moveTo(event.getX(), event.getY());
                 path.lineTo(event.getX(), event.getY());
@@ -214,7 +216,10 @@ public class MainActivity extends Activity implements OnClickListener{
                 path.lineTo(event.getX(), event.getY());
                 x1=event.getX();
                 y1=event.getY();
-                text1=x1+","+y1+","+time+";";
+                text1=x1+","+y1+","+time;
+
+                pixel[pixelCount]=text1;
+                pixelCount++;
 
 
                 //text1.concat("\n"+text1);
@@ -248,6 +253,9 @@ public class MainActivity extends Activity implements OnClickListener{
                         fw.flush();
                         fw.close();
                         Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
+
+                        Dft dft=new Dft();
+                        dft.normalize(MainActivity.this,pixel,pixelCount);
 
 
                     } catch (Exception e) {

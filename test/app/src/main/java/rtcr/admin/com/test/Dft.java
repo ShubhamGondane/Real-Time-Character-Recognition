@@ -1,23 +1,12 @@
 package rtcr.admin.com.test;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * Created by B D Gondane on 20-10-2016.
@@ -27,40 +16,110 @@ public class Dft {
     int count=0;
     StringBuilder s1=new StringBuilder(1000);
     String complex;
-    public void splitdata(Context context)
+
+    public void normalize(Context context,String pixel[],int pixelCount)
+    {
+        int ii=0,jj;
+        double sumX,sumY,n;
+
+        while(ii<pixelCount)
+        {
+            sumX=0;
+            sumY=0;
+            jj=ii-4;
+            n=0;
+            String line[]=new String[3];
+            while(jj<ii+4 && jj<pixelCount)
+            {
+                if(jj>=0)
+                {
+                    line=new String[3];
+                    line=pixel[jj].split(",");
+                    sumX=sumX+(Double.parseDouble(line[0]));
+                    sumY=sumY+(Double.parseDouble(line[1]));
+                    n++;
+                }
+
+                jj++;
+            }
+            sumX=sumX/n;
+            sumY=sumY/n;
+
+            pixel[ii]=sumX+","+sumY+","+line[2];
+
+            Log.d("normalize:", pixel[ii]+","+ii);
+
+            ii++;
+        }
+
+        splitdata(context,pixel,pixelCount);
+    }
+
+
+    public void splitdata(Context context,String pixel[],int pixelCount)
     {
 
 
-        double[] X= new double[1000];
-        double[] Y= new double[1000];
+        double[] X;
+        double[] Y;
         double[] Y1= new double[1000];
         double[] X1= new double[1000];
 
         int i=0;
         try {
-            InputStream ins = context.getResources().openRawResource(R.raw.datacoord);
+        //    InputStream ins = context.getResources().openRawResource(R.raw.datacoord);
             //FileReader fr=new FileReader("C:\\Users\\B D Gondane\\Desktop\\Major\\Code\\test\\app\\src\\main\\res\\raw\\datacoord.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(ins));
+       //     BufferedReader reader = new BufferedReader(new InputStreamReader(ins));
             String line;
+            int ii=0;
+            int jj=1;
+          //  while ((line = reader.readLine()) != null) {
+            while(ii<pixelCount)
+            {
+                X= new double[1000];
+                Y= new double[1000];
 
-            while ((line = reader.readLine()) != null) {
+                count=0;
+                i=0;
+                line=pixel[ii];
                 String[] temp = (line.split(","));
-                X[i]=Double.parseDouble(temp[0]);
-                Y[i]=Double.parseDouble(temp[1]);
+                jj=ii;
+                while(jj<pixelCount)
+                {
+                    String temp1[]=pixel[jj].split(",");
+                    if(temp[2].equals(temp1[2]))
+                    {
+                        X[i]=Double.parseDouble(temp1[0]);
+                        Y[i]=Double.parseDouble(temp1[1]);
+                        Log.d("X:", String.valueOf(X[i]));
+                        Log.d("Y:", String.valueOf(Y[i]));
+                        count++;
+                        i++;
+                    }
+                    else{
 
-                i++;
-                count++;
+                        break;
+                    }
+                    jj++;
+                }
+                dft(X,Y,X1,Y1);
+
+
+
+                ii=jj;
+
 
             }
-            ;for (i = 0; i < 50; i++) {
+            /*
+            for (i = 0; i < 50; i++) {
                 Log.d("X:", String.valueOf(X[i]));
                 Log.d("Y:", String.valueOf(Y[i]));
-            }
+            }*/
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        dft(X,Y,X1,Y1);
+
         try {
             File dftfile = new File(Environment.getExternalStorageDirectory().toString()+"/dft.txt");
 
@@ -98,7 +157,8 @@ public class Dft {
             }
             outreal[k] = sumreal;
             outimag[k] = sumimag;
-
+            Log.d("real:", String.valueOf(sumreal));
+            Log.d("img:", String.valueOf(sumimag));
         }
         for(int i=0;i<n;i++)
         {
@@ -106,6 +166,7 @@ public class Dft {
             s1.append(complex);
             s1.append("\n");
         }
+        s1.append("********************\n");
     }
 
 
