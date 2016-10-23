@@ -32,9 +32,9 @@ public class Dft {
             while(jj<ii+4 && jj<pixelCount)
             {
                 if(jj>=0)
-                {
-                    line=new String[3];
-                    line=pixel[jj].split(",");
+                { line=new String[3];
+                    line=pixel[jj].split(",")
+                   ;
                     sumX=sumX+(Double.parseDouble(line[0]));
                     sumY=sumY+(Double.parseDouble(line[1]));
                     n++;
@@ -52,9 +52,45 @@ public class Dft {
             ii++;
         }
 
-        splitdata(context,pixel,pixelCount);
+        scaling(context,pixel,pixelCount);
     }
+    public void scaling(Context context,String pixel[],int pixelCount)
+    {
+        double ScaleX,ScaleY,n,Xmax=0,Xmin=99999;
+        ScaleX=0;
+        ScaleY=0;
+        int ii=0,jj=0;
+        String line[]=new String[3];
 
+        while(ii<pixelCount) {
+            line = pixel[jj].split(",");
+            ScaleX = (Double.parseDouble(line[0]));
+            ScaleY = (Double.parseDouble(line[1]));
+            if (ScaleX > Xmax) {
+                Xmax = ScaleX;
+            } else if (ScaleX < Xmin) {
+                Xmin = ScaleX;
+            }
+            jj++;ii++;
+        }
+        ii=0;jj=0;
+            //Xmax=Xmax-Xmin;
+        while(ii<pixelCount){
+            line = pixel[jj].split(",");
+            ScaleX = (Double.parseDouble(line[0]));
+            ScaleY = (Double.parseDouble(line[1]));
+            ScaleX=((ScaleX-Xmin)/Xmax);
+
+            pixel[ii]=ScaleX+","+ScaleY+","+line[2];
+            Log.d("Scaled", pixel[ii]+","+ii);
+            ii++;
+            jj++;
+
+        }
+        splitdata(context, pixel, pixelCount);
+
+
+    }
 
     public void splitdata(Context context,String pixel[],int pixelCount)
     {
@@ -171,6 +207,5 @@ public class Dft {
 
 
 }
-
 
 
