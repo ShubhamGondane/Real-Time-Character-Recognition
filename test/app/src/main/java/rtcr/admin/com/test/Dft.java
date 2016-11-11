@@ -31,7 +31,7 @@ public class Dft {
         sampleNo=aaa;
         int ii=0,jj;
         double sumX,sumY,n;
-
+        /*
         while(ii<pixelCount)
         {
             sumX=0;
@@ -60,7 +60,7 @@ public class Dft {
             Log.d("normalize:", pixel[ii]+","+ii);
 
             ii++;
-        }
+        }*/
 
         scaling(context,pixel,pixelCount);
     }
@@ -360,7 +360,7 @@ public class Dft {
         double c=0,z=0;
         int i=0;
         double ss=0,ss1=0,ss2=0,dotp=0;
-        Mat A,B;
+        /*Mat A,B;
         double magnitude=0;
         A= new Mat(32,2, CvType.CV_64FC1);
         B= new Mat(32,2, CvType.CV_64FC1);
@@ -376,10 +376,10 @@ public class Dft {
         magnitude=Math.sqrt((ss1+ss2));
         dotp=A.dot(B);
         c=dotp/magnitude;
-        Log.d("Cos :",String.valueOf(c));
+        Log.d("Cos :",String.valueOf(c));*/
 
         //
-        /*while(i<32)
+        while(i<32)
         {
             ss=(a[i][0]*b[i][0])+(a[i][1]*b[i][1]);
             ss1=(a[i][0]*a[i][0])+(a[i][1]*a[i][1]);
@@ -394,7 +394,7 @@ public class Dft {
             i++;
 
         }
-        c=c/32;*/
+        c=c/32;
 
 
         z=Math.acos(c);
