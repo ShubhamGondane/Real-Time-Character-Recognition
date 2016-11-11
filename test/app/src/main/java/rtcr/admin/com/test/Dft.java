@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.opencv.android.OpenCVLoader;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
@@ -25,6 +26,8 @@ public class Dft {
     String complex;
     int sampleNo=0;
     Context context1;
+
+
     public void normalize(Context context,String pixel[],int pixelCount,int aaa)
     {
         context1=context;
@@ -219,6 +222,11 @@ public class Dft {
 
     void cos()
     {
+        if (!OpenCVLoader.initDebug()) {
+            Log.e(this.getClass().getSimpleName(), "  OpenCVLoader.initDebug(), not working.");
+        } else {
+            Log.d(this.getClass().getSimpleName(), "  OpenCVLoader.initDebug(), working.");
+        }
         double sample[][]= new double[1000][2];
 
         try {
@@ -360,7 +368,7 @@ public class Dft {
         double c=0,z=0;
         int i=0;
         double ss=0,ss1=0,ss2=0,dotp=0;
-        Mat A,B;
+        /*Mat A,B;
         double magnitude=0;
         A= new Mat(32,2, CvType.CV_64FC1);
         B= new Mat(32,2, CvType.CV_64FC1);
@@ -369,23 +377,24 @@ public class Dft {
             A.put(i,0,a[i][0]);
             A.put(i,1,a[i][1]);
             B.put(i,0,b[i][0]);
-            B.put(i,0,b[i][1]);
+            B.put(i,1,b[i][1]);
             ss1+=(a[i][0]*a[i][0])+(a[i][1]*a[i][1]);
             ss2+=(b[i][0]*b[i][0])+(b[i][1]*b[i][1]);
+            i++;
         }
         magnitude=Math.sqrt((ss1+ss2));
         dotp=A.dot(B);
         c=dotp/magnitude;
-        Log.d("Cos :",String.valueOf(c));
+        Log.d("Cos :",String.valueOf(c));*/
 
         //
-        /*while(i<32)
+        while(i<32)
         {
             ss=(a[i][0]*b[i][0])+(a[i][1]*b[i][1]);
             ss1=(a[i][0]*a[i][0])+(a[i][1]*a[i][1]);
             ss2=(b[i][0]*b[i][0])+(b[i][1]*b[i][1]);
            // Log.d("ss value:",String.valueOf(i)+","+String.valueOf(ss1)+","+String.valueOf(ss2)+","+String.valueOf(ss));
-            //magnitude=Math.sqrt(ss1+ss2);
+           // magnitude=Math.sqrt(ss1+ss2);
             ss1=Math.sqrt(ss1);
             ss2=Math.sqrt(ss2);
             c+=ss/(ss1*ss2);
@@ -394,12 +403,12 @@ public class Dft {
             i++;
 
         }
-        c=c/32;*/
+        c=c/32;
 
 
         z=Math.acos(c);
-        //Log.d("Cos inverse:",String.valueOf(z));
-        //Log.d("cos:",String.valueOf(c)+","+String.valueOf(ss1)+","+String.valueOf(ss2)+","+String.valueOf(ss));
+        Log.d("Cos inverse:",String.valueOf(z));
+        Log.d("cos:",String.valueOf(c)+","+String.valueOf(ss1)+","+String.valueOf(ss2)+","+String.valueOf(ss));
 
         return c;
 

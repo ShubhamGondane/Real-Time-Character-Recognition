@@ -10,6 +10,7 @@ import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,13 +27,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-/*import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Core;
+//import org.opencv.android.OpenCVLoader;
+/*import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;*/
+import org.opencv.imgcodecs.Imgcodecs;
 
-//import static org.opencv.core.Core.getOptimalDFTSize;
+import static org.opencv.core.Core.getOptimalDFTSize;*/
 
 public class MainActivity extends Activity implements OnClickListener{
     View mView;
@@ -61,13 +62,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
     LinearLayout layout;
 
-   /* static {
-        if(!OpenCVLoader.initDebug()) {
-            Log.d("ERROR", "Unable to load OpenCV");
-        } else {
-            Log.d("SUCCESS", "OpenCV loaded");
-        }
-    }*/
+
 
     public void onClick(View v)
     {
