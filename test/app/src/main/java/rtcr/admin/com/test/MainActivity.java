@@ -40,7 +40,7 @@ public class MainActivity extends Activity implements OnClickListener{
     String text;
     String text1;
     int time=0;
-
+    int sampleNo=0;
     String pixel[]=new String[1000];
     int pixelCount=0;
 
@@ -136,6 +136,10 @@ public class MainActivity extends Activity implements OnClickListener{
         mPaint.setStrokeWidth(5);
         pixel=new String[1000];
         pixelCount=0;
+        if(sampleNo==5)
+        {
+            sampleNo=0;
+        }
     }
 
     @Override
@@ -255,8 +259,8 @@ public class MainActivity extends Activity implements OnClickListener{
                         Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
 
                         Dft dft=new Dft();
-                        dft.normalize(MainActivity.this,pixel,pixelCount);
-
+                        dft.normalize(MainActivity.this,pixel,pixelCount,sampleNo);
+                        sampleNo++;
 
                     } catch (Exception e) {
                         Toast.makeText(getBaseContext(), e.getMessage(),
