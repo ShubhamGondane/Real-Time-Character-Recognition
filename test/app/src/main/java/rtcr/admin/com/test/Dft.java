@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Vector;
 
 /**
  * Created by B D Gondane on 20-10-2016.
@@ -371,7 +372,6 @@ public class Dft {
             B.put(i,1,b[i][1]);
             ss1+=(a[i][0]*a[i][0])+(a[i][1]*a[i][1]);
             ss2+=(b[i][0]*b[i][0])+(b[i][1]*b[i][1]);
-            i++;
         }
         magnitude=Math.sqrt((ss1+ss2));
         dotp=A.dot(B);
