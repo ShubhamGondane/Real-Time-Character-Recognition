@@ -5,14 +5,10 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.Vector;
 
 /**
  * Created by B D Gondane on 20-10-2016.
@@ -24,6 +20,7 @@ public class Dft {
     StringBuilder s2=new StringBuilder(1000);
     String complex;
     int sampleNo=0;
+
     Context context1;
     public void normalize(Context context,String pixel[],int pixelCount,int aaa)
     {
@@ -66,7 +63,8 @@ public class Dft {
     }
     public void scaling(Context context,String pixel[],int pixelCount)
     {
-        double ScaleX,ScaleY,n,Xmax=0,Xmin=99999;
+        double ScaleX,ScaleY,n,Xmax=0,Xmin=99999,Ymin=99999,Ymax=0;
+        StringBuilder sb=new StringBuilder(1000);
         ScaleX=0;
         ScaleY=0;
         int ii=0,jj=0;
@@ -81,22 +79,33 @@ public class Dft {
             } else if (ScaleX < Xmin) {
                 Xmin = ScaleX;
             }
+            if (ScaleY > Ymax) {
+                Ymax = ScaleY;
+            } else if (ScaleY < Ymin) {
+                Ymin = ScaleY;
+            }
             jj++;ii++;
         }
         ii=0;jj=0;
             //Xmax=Xmax-Xmin;
-        while(ii<pixelCount){
+        double yWin=(50/(Xmax-Xmin))*(Ymax-Ymin);
+        while(jj<pixelCount){
             line = pixel[jj].split(",");
             ScaleX = (Double.parseDouble(line[0]));
             ScaleY = (Double.parseDouble(line[1]));
-            ScaleX=((ScaleX-Xmin)/Xmax);
+            ScaleY=ScaleY*(50/yWin);
+            ScaleX = (((ScaleX - Xmin) *49)/ (Xmax-Xmin))+1;
 
-            pixel[ii]=ScaleX+","+ScaleY+","+line[2];
-            Log.d("Scaled", pixel[ii]+","+ii);
-            ii++;
+            pixel[jj]=ScaleX+","+ScaleY+","+line[2];
+            sb.append(pixel[jj]+"\n");
+            Log.d("Scaled", pixel[jj]+","+jj);
+
             jj++;
 
         }
+
+        cosWrite(sb,"scale");
+
         splitdata(context, pixel, pixelCount);
 
 
@@ -344,7 +353,7 @@ public class Dft {
                         break;
                 }
 
-                cosWrite();
+                cosWrite(s2,"cos");
             }
 
 
@@ -405,10 +414,10 @@ public class Dft {
 
     }
 
-    void cosWrite()
+    void cosWrite(StringBuilder sb,String fileName)
     {
         try {
-            File dftfile = new File(Environment.getExternalStorageDirectory().toString()+"/cos.txt");
+            File dftfile = new File(Environment.getExternalStorageDirectory().toString()+"/"+fileName+".txt");
 
             if(!dftfile.exists())
             {
@@ -420,10 +429,10 @@ public class Dft {
             //fw.append(text1);
             fw.append("\n=======");
 
-            fw.append(s2);
+            fw.append(sb);
             fw.flush();
             fw.close();
-            Toast.makeText(context1, "cos calculated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context1, fileName+" calculated", Toast.LENGTH_SHORT).show();
 
 
         } catch (Exception e) {
