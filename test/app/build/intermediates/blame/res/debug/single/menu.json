@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\ADMIN\\Desktop\\test\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "C:\\Users\\ADMIN\\Desktop\\test\\app\\src\\main\\res\\menu\\menu_main.xml"
+    },
+    {
         "merged": "C:\\Users\\ADMIN\\repos\\rtcr\\test\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
         "source": "C:\\Users\\ADMIN\\repos\\rtcr\\test\\app\\src\\main\\res\\menu\\menu_main.xml"
     }

@@ -69,6 +69,7 @@ public class Dft {
         ScaleY=0;
         int ii=0,jj=0;
         String line[]=new String[3];
+        String pixel22[]=new String [1000];
 
         while(ii<pixelCount) {
             line = pixel[jj].split(",");
@@ -96,9 +97,9 @@ public class Dft {
             ScaleY=ScaleY*(50/yWin);
             ScaleX = (((ScaleX - Xmin) *49)/ (Xmax-Xmin))+1;
 
-            pixel[jj]=ScaleX+","+ScaleY+","+line[2];
-            sb.append(pixel[jj]+"\n");
-            Log.d("Scaled", pixel[jj]+","+jj);
+            pixel22[jj]=ScaleX+","+ScaleY+","+line[2];
+            sb.append(pixel22[jj]+"\n");
+            Log.d("Scaled", pixel22[jj]+","+jj);
 
             jj++;
 
@@ -106,7 +107,7 @@ public class Dft {
 
         cosWrite(sb,"scale");
 
-        splitdata(context, pixel, pixelCount);
+        splitdata(context, pixel22, pixelCount);
 
 
     }
