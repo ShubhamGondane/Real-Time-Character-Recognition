@@ -1,18 +1,10 @@
 [
     {
-        "merged": "C:\\Users\\ADMIN\\repos\\rtcr\\test\\app\\build\\intermediates\\res\\merged\\debug\\raw\\data.txt",
-        "source": "C:\\Users\\ADMIN\\repos\\rtcr\\test\\app\\src\\main\\res\\raw\\data.txt"
+        "merged": "C:\\Users\\B D Gondane\\Desktop\\test\\app\\build\\intermediates\\res\\merged\\debug\\raw\\data.txt",
+        "source": "C:\\Users\\B D Gondane\\Desktop\\test\\app\\src\\main\\res\\raw\\data.txt"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\Desktop\\test\\app\\build\\intermediates\\res\\merged\\debug\\raw\\datacoord.txt",
-        "source": "C:\\Users\\ADMIN\\Desktop\\test\\app\\src\\main\\res\\raw\\datacoord.txt"
-    },
-    {
-        "merged": "C:\\Users\\ADMIN\\Desktop\\test\\app\\build\\intermediates\\res\\merged\\debug\\raw\\data.txt",
-        "source": "C:\\Users\\ADMIN\\Desktop\\test\\app\\src\\main\\res\\raw\\data.txt"
-    },
-    {
-        "merged": "C:\\Users\\ADMIN\\repos\\rtcr\\test\\app\\build\\intermediates\\res\\merged\\debug\\raw\\datacoord.txt",
-        "source": "C:\\Users\\ADMIN\\repos\\rtcr\\test\\app\\src\\main\\res\\raw\\datacoord.txt"
+        "merged": "C:\\Users\\B D Gondane\\Desktop\\test\\app\\build\\intermediates\\res\\merged\\debug\\raw\\datacoord.txt",
+        "source": "C:\\Users\\B D Gondane\\Desktop\\test\\app\\src\\main\\res\\raw\\datacoord.txt"
     }
 ]

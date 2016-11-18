@@ -1,7 +1,10 @@
 package rtcr.admin.com.test;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,12 +13,14 @@ import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -40,7 +45,7 @@ public class MainActivity extends Activity implements OnClickListener{
     String text;
     String text1;
     int time=0;
-    int sampleNo=0;
+    int sampleNo=0,appid;
     String pixel[]=new String[1000];
     int pixelCount=0;
 
@@ -68,7 +73,12 @@ public class MainActivity extends Activity implements OnClickListener{
             Log.d("SUCCESS", "OpenCV loaded");
         }
     }*/
+    void setAppId(int ii)
+    {
+        appid=ii;
+        Log.d("SET appid:",String.valueOf(appid));
 
+    }
     public void onClick(View v)
     {
 
@@ -79,6 +89,7 @@ public class MainActivity extends Activity implements OnClickListener{
                 LinearLayout.LayoutParams.MATCH_PARENT));
 
         init();
+        appIdentify();
         /*Mat mat=new Mat(2,2, CvType.CV_32F);
 
         mat.put(1,1,1);
@@ -96,6 +107,7 @@ public class MainActivity extends Activity implements OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Main2Activity ma2=new Main2Activity();
         layout = (LinearLayout) findViewById(R.id.myDrawing1);
         mView = new DrawingView(this);
         layout.addView(mView, new LayoutParams(
@@ -121,6 +133,36 @@ public class MainActivity extends Activity implements OnClickListener{
 
 
 
+    }
+    public void appIdentify()
+    {
+      //  appid=id;
+      //  Log.d("App id:", String.valueOf(appid));
+        //onCreate();
+        String app="com.google.android.talk";
+        Log.d("appid:",String.valueOf(appid));
+        switch(appid)
+        {
+            case 1:
+                app="com.facebook.katana";
+                break;
+            case 2:
+                app="com.whatsapp";
+                break;
+            case 3:
+                app="com.twitter.android";
+                break;
+            case 4:
+                app="com.google.android.youtube";
+                break;
+            case 5:
+                app="com.instagram.android";
+                break;
+        }
+
+
+        Intent LaunchIntent =     getPackageManager().getLaunchIntentForPackage(app);
+        startActivity(LaunchIntent);
     }
 
 

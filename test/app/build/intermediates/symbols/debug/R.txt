@@ -365,7 +365,7 @@ int id action_menu_presenter 0x7f0d0003
 int id action_mode_bar 0x7f0d0033
 int id action_mode_bar_stub 0x7f0d0032
 int id action_mode_close_button 0x7f0d0025
-int id action_settings 0x7f0d0048
+int id action_settings 0x7f0d004a
 int id activity_chooser_view_content 0x7f0d0026
 int id adjust_height 0x7f0d0019
 int id adjust_width 0x7f0d001a
@@ -375,6 +375,8 @@ int id back 0x7f0d0014
 int id beginning 0x7f0d0016
 int id button 0x7f0d0046
 int id button2 0x7f0d0047
+int id button3 0x7f0d0048
+int id button4 0x7f0d0049
 int id checkbox 0x7f0d002e
 int id collapseActionView 0x7f0d001c
 int id decor_content_parent 0x7f0d0034
@@ -451,7 +453,8 @@ int layout abc_search_dropdown_item_icons_2line 0x7f040014
 int layout abc_search_view 0x7f040015
 int layout abc_simple_dropdown_hint 0x7f040016
 int layout activity_main 0x7f040017
-int layout support_simple_spinner_dropdown_item 0x7f040018
+int layout activity_main2 0x7f040018
+int layout support_simple_spinner_dropdown_item 0x7f040019
 int menu menu_main 0x7f0e0000
 int mipmap ic_launcher 0x7f030000
 int raw data 0x7f060000
