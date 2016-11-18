@@ -1,3 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-8.1.0_f31b60bb05f39853bd4deffa17763f6a6d62e101.jar" />
+    </item>
+    <item
+        jar="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0_1a1540342809c5a1dd97af2c631ed10a50e008c6.jar" />
+    </item>
+    <item
+        jar="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="9b4037e3ab1a941bda7075fcb63a058536cc9efd">
+        <dex dex="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\pre-dexed\debug\instant-run_faf1ad92789cd46d4f90f2110778bbaf90537264.jar" />
+    </item>
+    <item
+        jar="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="e71a38fab3661d4021e01a15ff38437626e579a5">
+        <dex dex="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_f45032199828b1ca0ef761ae174312495f24986d.jar" />
+    </item>
+    <item
+        jar="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-21.0.3_ee06f79335f9a7246b4f2db198461ca061212e44.jar" />
+    </item>
+    <item
+        jar="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-appindexing-8.1.0_c87b79b17be23c751fcff6fc6ea04049157c4fb4.jar" />
+    </item>
+    <item
+        jar="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-22.2.0_8663ee6b1d9d4eea9a0eb5e0074665a1c0eeb06b.jar" />
+    </item>
+    <item
+        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="C:\Users\B D Gondane\Desktop\test\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0_70ba567356d3f4e70248bb87208265e9c5e15549.jar" />
+    </item>
+
+</items>

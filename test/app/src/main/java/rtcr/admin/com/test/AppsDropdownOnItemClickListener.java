@@ -3,6 +3,7 @@ package rtcr.admin.com.test;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -44,6 +45,8 @@ public class AppsDropdownOnItemClickListener  implements AdapterView.OnItemClick
 
         //new MainActivity().setAppId(Integer.parseInt( selectedItemTag));;
         Intent I = new Intent(mContext, MainActivity.class);
+        Log.d("Tag id:",selectedItemTag);
+        I.putExtra("App Id", selectedItemTag);
         mContext.startActivity(I);
 
 

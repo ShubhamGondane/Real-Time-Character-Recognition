@@ -76,6 +76,7 @@ public class MainActivity extends Activity implements OnClickListener{
     void setAppId(int ii)
     {
         appid=ii;
+
         Log.d("SET appid:",String.valueOf(appid));
 
     }
@@ -139,6 +140,11 @@ public class MainActivity extends Activity implements OnClickListener{
       //  appid=id;
       //  Log.d("App id:", String.valueOf(appid));
         //onCreate();
+
+            String value = getIntent().getExtras().getString("App Id");
+            appid=Integer.parseInt(value);
+            //The key argument here must match that used in the other activity
+
         String app="com.google.android.talk";
         Log.d("appid:",String.valueOf(appid));
         switch(appid)
